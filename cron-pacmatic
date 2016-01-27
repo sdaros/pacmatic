@@ -2,6 +2,8 @@
 
 . /usr/bin/pacmatic --as-lib
 
+mailer="${mailer:-/usr/bin/msmtp}"
+
 if [ $# -eq 0 ]; then
     cat << END
 Usage: $0 <your@mail.tld>
@@ -32,11 +34,11 @@ packages=`pending_updates`
 if [[ -n $packages ]]; then
     mail_body=`mktemp`
     echo "Subject: Updates available on $(hostname)" >> $mail_body
-    echo "\n" >> $mail_body
+    echo "" >> $mail_body
     check_news                             >> $mail_body
     mail_summary                           >> $mail_body
     echo "Recent ML chatter: $mail_counts" >> $mail_body
     echo "Pacman updates: $packages"       >> $mail_body
     cat $mail_body |\
-        $mail $1
+	    $mailer $1
 fi
