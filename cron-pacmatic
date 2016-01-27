@@ -31,10 +31,12 @@ packages=`pending_updates`
 
 if [[ -n $packages ]]; then
     mail_body=`mktemp`
+    echo "Subject: Updates available on $(hostname)" >> $mail_body
+    echo "\n" >> $mail_body
     check_news                             >> $mail_body
     mail_summary                           >> $mail_body
     echo "Recent ML chatter: $mail_counts" >> $mail_body
     echo "Pacman updates: $packages"       >> $mail_body
     cat $mail_body |\
-        mail -s "Updates available on $(hostname)" $1
+        msmtp $1
 fi

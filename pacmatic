@@ -1,6 +1,7 @@
 #! /bin/bash
 
 # configs
+mail=${mail:/usr/bin/msmtp}
 warn_time="${warn_time:-86400}"  # seconds
 rss_feed="${rss_feed:-https://www.archlinux.org/feeds/news/}"
 mail_list="${mail_list:-https://lists.archlinux.org/pipermail/arch-general/$(LC_ALL=C printf '%(%Y-%B)T\n' -1).txt.gz}"
