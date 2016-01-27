@@ -38,5 +38,5 @@ if [[ -n $packages ]]; then
     echo "Recent ML chatter: $mail_counts" >> $mail_body
     echo "Pacman updates: $packages"       >> $mail_body
     cat $mail_body |\
-        msmtp $1
+        $mail $1
 fi
